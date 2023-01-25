@@ -1,5 +1,5 @@
 export abstract class userRepository {
-  abstract create(
+  abstract user(
     name: string,
     passaword: string,
     email: string,
