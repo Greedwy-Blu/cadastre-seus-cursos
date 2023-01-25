@@ -1,7 +1,6 @@
 import { createUserBody } from './../dtos/create-user-body';
 import { PrismaService } from './../database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { userFindRepository } from '../database/repositories/userFind-repositories';
 @Injectable()
 export class userService {
   constructor(
