@@ -5,8 +5,9 @@ import { AppController } from './app.controller';
 import { userRepository } from './infra/database/repositories/user-repositories';
 import { studyRepository } from './infra/database/repositories/study-repositories';
 import { PrismaStudyRepository } from './infra/database/repositories/prisma/prisma-study-repositories';
+import { AuthModule } from './infra/http/auth/auth.module';
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [AppController],
   providers: [
     PrismaService,
