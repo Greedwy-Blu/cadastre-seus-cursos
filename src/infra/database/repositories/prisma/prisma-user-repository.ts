@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './../../prisma/prisma.service';
 import { userRepository } from '../user-repositories';
-import bcrypt from 'bcrypt';
+
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class PrismaUserRepository implements userRepository {
   constructor(private prisma: PrismaService) {}
