@@ -1,3 +1,4 @@
+import { AuthService } from './infra/http/auth/auth.service';
 import { PrismaService } from './infra/database/prisma/prisma.service';
 import { Controller, Post, Body } from '@nestjs/common';
 import { createUserBody } from './infra/dtos/create-user-body';
@@ -12,6 +13,7 @@ export class AppController {
   constructor(
     private userRepository: userRepository,
     private studyRepository: studyRepository,
+    private authService: AuthService,
   ) {}
 
   @Post('create-user')
@@ -31,6 +33,6 @@ export class AppController {
   @UseGuards(AuthGuard('local'))
   @Post('login/auth')
   async login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }
