@@ -5,6 +5,8 @@ import { userRepository } from './infra/database/repositories/user-repositories'
 
 import { studyRepository } from './infra/database/repositories/study-repositories';
 import { createStudyBody } from './infra/dtos/create-study-body';
+import { Request, UseGuards } from '@nestjs/common/decorators';
+import { AuthGuard } from '@nestjs/passport';
 @Controller()
 export class AppController {
   constructor(
@@ -24,5 +26,11 @@ export class AppController {
     const { instuicao, curso, professores } = body;
 
     await this.studyRepository.create(instuicao, curso, professores);
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Post('login/auth')
+  async login(@Request() req) {
+    return req.user;
   }
 }
