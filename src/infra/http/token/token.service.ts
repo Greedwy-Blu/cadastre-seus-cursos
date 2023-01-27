@@ -48,7 +48,10 @@ export class tokenService {
     });
 
     if (objToken) {
-      return oldToken;
+      const user = await this.prisma.token.findFirst({
+        where: { username: objToken.username },
+      });
+      return this.authService.login(user);
     } else {
       return new HttpException(
         {
