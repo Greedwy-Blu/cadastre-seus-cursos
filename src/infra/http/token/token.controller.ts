@@ -1,9 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { tokenService } from './token.service';
+import { RefreshTokenDto } from './dto/refresh-token';
+import { Controller, Get, Put, Body } from '@nestjs/common';
 
-@Controller('teste')
+@Controller('token')
 export class tokenController {
-  @Get()
-  findAll(): string {
-    return 'This action returns all token';
+  constructor(private tokenService: tokenService) {}
+  @Put('refresh')
+  async refreshToken(@Body() data: RefreshTokenDto) {
+    return this.tokenService.refreshToken(data.oldToken);
   }
 }
