@@ -8,6 +8,9 @@ import {
   Body,
   Request,
   UseGuards,
+  Put,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import { createUserBody } from './infra/dtos/create-user-body';
 import { userRepository } from './infra/database/repositories/user-repositories';
@@ -23,22 +26,15 @@ export class AppController {
     private authService: AuthService,
   ) {}
 
-  @Post('create-user')
+  @Post('home/create-user')
   async postUser(@Body() body: createUserBody) {
     const { name, email, password, age } = body;
 
     await this.userRepository.create(name, email, password, age);
   }
 
-  @Post('create-study')
-  async postStudy(@Body() body: createStudyBody) {
-    const { instuicao, curso, professores } = body;
-
-    await this.studyRepository.create(instuicao, curso, professores);
-  }
-
   @UseGuards(AuthGuard('local'))
-  @Post('login/auth')
+  @Post('home/login/auth')
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
@@ -48,4 +44,24 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('user/create-study')
+  async postStudy(@Body() body: createStudyBody) {
+    const { instuicao, curso, professores } = body;
+
+    await this.studyRepository.create(instuicao, curso, professores);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('user/study/study-find')
+  async patchstudyfind(@Body() body: createStudyBody) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Put('user/study/study-update')
+  async putstudyupdate(@Body() body: createStudyBody) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('user/study/study-delete')
+  async studydelete(@Body() body: createStudyBody) {}
 }
