@@ -5,22 +5,56 @@ import { Injectable } from '@nestjs/common';
 export class studyService {
   constructor(
     private prisma: PrismaService,
-    createStudyBody: createStudyBody,
+    private createStudyBody: createStudyBody,
   ) {}
 
-  async studyCreate(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.create({});
+  async studyCreate(
+    id: number,
+    instuicao: string,
+    curso: string,
+    professores: string,
+  ): Promise<createStudyBody | any> {
+    await this.prisma.study.create({
+      data: {
+        instuicao: instuicao,
+        curso: curso,
+        professores: professores,
+        userId: id,
+      },
+    });
   }
 
-  async studyFind(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.findMany({});
+  async studyFind(id: number): Promise<createStudyBody | any> {
+    await this.prisma.study.findMany({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  async studyUpadte(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.update({});
+  async studyUpadte(
+    id: number,
+    instuicao: string,
+    curso: string,
+    professores: string,
+  ): Promise<createStudyBody | any> {
+    await this.prisma.study.update({
+      where: {
+        id: id,
+      },
+      data: {
+        instuicao: instuicao,
+        curso: curso,
+        professores: professores,
+      },
+    });
   }
 
-  async studyDelete(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.delete({});
+  async studyDelete(id: number): Promise<createStudyBody | any> {
+    await this.prisma.study.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

@@ -9,15 +9,11 @@ export class curriculumService {
     createStudyBody: createStudyBody,
   ) {}
 
-  async studyFind(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.findMany({});
-  }
-
-  async studyUpadte(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.update({});
-  }
-
-  async studyDelete(email: string): Promise<createStudyBody | any> {
-    await this.prisma.study.delete({});
+  async studyFind(id: number): Promise<createStudyBody | any> {
+    await this.prisma.curriculum.findMany({
+      where: {
+        id: id,
+      },
+    });
   }
 }
