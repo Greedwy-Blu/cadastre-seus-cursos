@@ -4,7 +4,7 @@ import { PrismaService } from './infra/database/prisma/prisma.service';
 import { AppController } from './app.controller';
 import { userRepository } from './infra/database/repositories/user-repositories';
 import { studyRepository } from './infra/database/repositories/study-repositories';
-import { PrismaStudyRepository } from './infra/database/repositories/prisma/prisma-study-repositories';
+import { PrismaStudyRepository } from './infra/database/repositories/prisma/prisma-study-repository';
 import { AuthModule } from './infra/http/auth/auth.module';
 @Module({
   imports: [AuthModule],
