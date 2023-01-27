@@ -1,3 +1,4 @@
+import { PrismaService } from './../../database/prisma/prisma.service';
 import { createUserBody } from './../../dtos/create-user-body';
 import { tokenService } from './token.service';
 import { userModule } from './../../user/user.module';
@@ -9,7 +10,7 @@ import { Module } from '@nestjs/common';
 @Module({
   imports: [forwardRef(() => AuthModule), userModule],
   controllers: [tokenController],
-  providers: [tokenService, createUserBody],
+  providers: [tokenService, PrismaService],
   exports: [tokenService],
 })
 export class tokenModule {}

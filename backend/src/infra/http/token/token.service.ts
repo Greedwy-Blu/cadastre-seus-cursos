@@ -1,8 +1,6 @@
 import { userService } from './../../user/user.service';
 import { forwardRef } from '@nestjs/common/utils';
 import { PrismaService } from './../../database/prisma/prisma.service';
-import { createTokenBody } from './dto/create-token-body';
-import { JwtService } from '@nestjs/jwt';
 import { Injectable, Inject } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions';
 import { HttpStatus } from '@nestjs/common/enums';
@@ -10,7 +8,6 @@ import { AuthService } from '../auth/auth.service';
 @Injectable()
 export class tokenService {
   constructor(
-    private createTokenBody: createTokenBody,
     private prisma: PrismaService,
     private userService: userService,
     @Inject(forwardRef(() => AuthService))
