@@ -1,3 +1,4 @@
+import { studyService } from './infra/study/study.service';
 import { JwtAuthGuard } from './infra/http/auth/jwt-auth.guard';
 import { AuthService } from './infra/http/auth/auth.service';
 import { PrismaService } from './infra/database/prisma/prisma.service';
@@ -24,6 +25,7 @@ export class AppController {
     private userRepository: userRepository,
     private studyRepository: studyRepository,
     private authService: AuthService,
+    private studyService: studyService,
   ) {}
 
   @Post('home/create-user')
@@ -55,13 +57,24 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Patch('user/study/study-find')
-  async patchstudyfind(@Body() body: createStudyBody) {}
+  async patchstudyfind(@Body() body: createStudyBody) {
+    const { id } = body;
+
+    await this.studyService.studyFind(id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Put('user/study/study-update')
-  async putstudyupdate(@Body() body: createStudyBody) {}
+  async putstudyupdate(@Body() body: createStudyBody) {
+    const { id, instuicao, curso, professores } = body;
+    await this.studyService.studyUpadte(id, instuicao, curso, professores);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Delete('user/study/study-delete')
-  async studydelete(@Body() body: createStudyBody) {}
+  async studydelete(@Body() body: createStudyBody) {
+    const { id } = body;
+
+    await this.studyService.studyDelete(id);
+  }
 }
