@@ -1,3 +1,4 @@
+import { curriculumService } from './infra/study/study-curriculum/study-curriculum.service';
 import { studyService } from './infra/study/study.service';
 import { JwtAuthGuard } from './infra/http/auth/jwt-auth.guard';
 import { AuthService } from './infra/http/auth/auth.service';
@@ -26,6 +27,7 @@ export class AppController {
     private studyRepository: studyRepository,
     private authService: AuthService,
     private studyService: studyService,
+    private curriculumService: curriculumService,
   ) {}
 
   @Post('home/create-user')
@@ -76,5 +78,13 @@ export class AppController {
     const { id } = body;
 
     await this.studyService.studyDelete(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('user/study/study-curriculum')
+  async getstudycurriculem(@Body() body: createStudyBody) {
+    const { id } = body;
+
+    await this.curriculumService.getcurriculum(id);
   }
 }

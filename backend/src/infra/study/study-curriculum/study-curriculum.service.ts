@@ -9,10 +9,19 @@ export class curriculumService {
     createStudyBody: createStudyBody,
   ) {}
 
-  async studyFind(id: number): Promise<createStudyBody | any> {
+  async getcurriculum(id: number): Promise<createStudyBody | any> {
     await this.prisma.curriculum.findMany({
       where: {
-        id: id,
+        studyId: id,
+      },
+      select: {
+        study: {
+          select: {
+            curso: true,
+            instuicao: true,
+            professores: true,
+          },
+        },
       },
     });
   }
