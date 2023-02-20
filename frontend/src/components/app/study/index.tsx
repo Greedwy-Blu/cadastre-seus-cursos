@@ -23,9 +23,34 @@ export default function Study(){
 
 
       </div>
-      <div>
-        <a>aaa</a>
+
+
+      <div className="mt-20 m-8">
+
+        <div>
+        <p><a>Cursos</a></p>
+        </div>
+
+        <div>
+
+
+        </div>
+
       </div>
+
+      <div className="mt-20 m-8">
+        <div>
+          <p>Anotações</p>
+        </div>
+
+        <div>
+
+        </div>
+
+
+      </div>
+
+
     </section>
   )
 }

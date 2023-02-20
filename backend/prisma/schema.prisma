@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id       Int     @id @default(autoincrement())
-  email    String?   @unique
+  email    String? @unique
   password String?
   name     String?
   age      Int?
@@ -20,25 +20,33 @@ model User {
 }
 
 model Study {
-  id         Int          @id @default(autoincrement())
-  instuicao  String
-  curso      String
-  professores  String
-  user       User         @relation(fields: [userId], references: [id])
-  userId     Int
-  curriculum curriculum[]
+  id          Int          @id @default(autoincrement())
+  instuicao   String
+  curso       String
+  professores String
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int
+  curriculum  Curriculum[]
 }
 
-model curriculum {
-  id      Int   @id @default(autoincrement())
-  study   Study @relation(fields: [studyId], references: [id])
-  studyId Int
+model Curriculum {
+  id       Int    @id @default(autoincrement())
+  materias String
+  study    Study  @relation(fields: [studyId], references: [id])
+  studyId  Int
+  anotacao  anotacao[]
 }
 
-model token{
+model anotacao {
+  id         Int        @id @default(autoincrement())
+  descricao  String
+  titulo     String
+  curriculum Curriculum  @relation(fields: [curriculumId], references: [id])
+  curriculumId Int
+}
 
-id Int @id @default(autoincrement())
-hash String
-username String
-
+model token {
+  id       Int    @id @default(autoincrement())
+  hash     String
+  username String
 }
