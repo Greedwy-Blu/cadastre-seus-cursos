@@ -6,7 +6,7 @@ export default function Register(){
         <img src={imgRegister} alt="" className='h-[300px] w-[400px] bg-slate-100' />
       </div>
     <div  className="flex justify-center" >
-      <form className=" w-[700px] ">
+      <form className="md:w-[700px] sm:w-full ">
         <div className="text-sm text-gray-500 pt-2 w-full">
           <p className="m-1">
             <a className="text-slate-900 font-bold">
@@ -75,7 +75,7 @@ export default function Register(){
          placeholder="idade"
           />
         </div>
-        <div className="mt-5 ml-[300px]  ">
+        <div className="md:m-5 md:ml-[300px]  ">
         <button className="w-24 h-10 mt-5
         bg-red-400  hover:bg-red-500 font-bold">
                       enviar
