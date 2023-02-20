@@ -1,9 +1,9 @@
 export default function Header(){
   return(
     <header>
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center bg-orange-500 w-full h-16">
 
-        <a>NotionGrade</a>
+        <a className="text-lg font-bold">NotionGrade</a>
 
       </div>
     </header>
