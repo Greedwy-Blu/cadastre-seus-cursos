@@ -1,12 +1,16 @@
 import { useState } from 'react'
+import Routers from './router'
+import Header from './components/Header'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
+    <main >
 
-    </div>
+       <Header/>
+      <Routers/>
+
+    </main>
   )
 }
 
