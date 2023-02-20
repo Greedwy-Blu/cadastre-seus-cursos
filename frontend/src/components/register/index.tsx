@@ -77,7 +77,7 @@ export default function Register(){
         </div>
         <div className="mt-5 ml-[300px]  ">
         <button className="w-24 h-10 mt-5
-        bg-red-400">
+        bg-red-400  hover:bg-red-500 font-bold">
                       enviar
                     </button>
         </div>
