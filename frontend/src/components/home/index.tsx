@@ -15,7 +15,7 @@ return(
       </p>
       <p className='flex space-x-4 text-center font-bold '>
         <Link to="Home/register">
-        <a className='h-8 w-16 p-2 bg-red-400  hover:bg-red-500'>register</a>
+        <a className='h-8 w-16 p-2 bg-red-400  hover:bg-red-500'>cadastra-se</a>
         </Link>
         <Link to="Home/login">
         <a className='h-8 w-16 p-2 bg-red-400  hover:bg-red-500'>login</a>
