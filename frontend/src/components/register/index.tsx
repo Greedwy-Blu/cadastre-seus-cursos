@@ -1,6 +1,10 @@
+import imgRegiste from '../../assets/Open Doodles - Reading.png'
 export default function Register(){
   return(
     <section className="">
+      <div className='m-2 flex justify-center'>
+        <img src={imgRegiste} alt="" className='h-[300px] w-[400px] bg-slate-100' />
+      </div>
     <div  className="flex justify-center" >
       <form className=" w-[700px] ">
         <div className="text-sm text-gray-500 pt-2 w-full">
