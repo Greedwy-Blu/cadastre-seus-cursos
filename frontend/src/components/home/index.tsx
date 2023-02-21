@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import imgHome from '../../assets/undraw_knowledge_re_5v9l.svg'
+import Header from '../Header'
 export default function HomePage(){
 return(
   <section className='md:grid md:justify-items-center md:w-[900px] md:h-[500px]'>
+
+
     <div className='md:flex md:items-center md:translate-x-28'>
 
     <div className=''>

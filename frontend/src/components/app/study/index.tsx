@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 export default function Study() {
   return (
     <section>
-      <div className="flex justify-center  w-full h-12 bg-orange-200">
+      <div className="flex justify-center  w-full h-16 bg-orange-200">
         <div className="flex ">
           <ul className="flex  items-center space-x-1  font-bold">
             <Link to="/app/profile">
               <li>
-                <a className="bg-red-200 h-10 w-11 p-2  hover:bg-red-500">
+                <a className=" border-b-2 border-transparent h-10 w-11 p-2  hover:border-red-500">
                   perfil
                 </a>
               </li>
             </Link>
             <Link to="/app/study">
               <li>
-                <a className="bg-red-200 h-10 w-11 p-2  hover:bg-red-500">
+                <a className="border-b-2 border-transparent h-10 w-11 p-2  hover:border-red-500 ">
                   estudos
                 </a>
               </li>
@@ -32,6 +32,14 @@ export default function Study() {
         </div>
       </div>
 
+      <div className="flex justify-end m-6 space-x-6 items-center">
+
+       <p className="font-bold h-12 w-24  text-center  bg-red-300 hover:bg-red-400 shadow"> <a>Cadastrar Curso</a></p>
+        <p className="font-bold h-12 w-24  text-center  bg-red-300  hover:bg-red-400 shadow"><a>Anotar tarefa</a></p>
+
+      </div>
+
+
       <div className="mt-20 m-8">
         <div className="flex items-center space-x-3 font-bold">
           <p>
@@ -39,7 +47,7 @@ export default function Study() {
           </p>
           <p className="border-t-2 w-5/6  border-orange-900"></p>
         </div>
-        <div className="h-full">
+        <div className="h-full mt-4">
           <div className="grid grid-cols-3 gap-4  ">
             <div className=" bg-slate-500 mx-8  h-[400px] w-[400px]">
               <div id="curso"></div>
@@ -61,7 +69,7 @@ export default function Study() {
           </p>
         </div>
 
-        <div className="h-full">
+        <div className="h-full mt-4">
           <div className="grid grid-cols-3 gap-4  ">
             <div className=" bg-slate-500 mx-8  h-[400px] w-[400px]">
               <div id="title"></div>
