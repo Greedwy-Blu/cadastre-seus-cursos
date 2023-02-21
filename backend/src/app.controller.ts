@@ -99,4 +99,26 @@ export class AppController {
 
     await this.anotacaoService.anotacaoCreate(id, descricao, titulo);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('user/anotacao/anotacao-find')
+  async putAnotacaoUpdate(@Body() body: createAnotacaoBody) {
+    const { id, descricao, titulo } = body;
+    await this.anotacaoService.anotacaoFind(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('user/anotacao/anotacao-delete')
+  async anotacaoDelete(@Body() body: createAnotacaoBody) {
+    const { id } = body;
+
+    await this.studyService.studyDelete(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('user/anotacao/anotocao-update')
+  async anotacaoUpdate(@Body() body: createAnotacaoBody) {
+    const { id, descricao, titulo } = body;
+    await this.anotacaoService.anotacaoUpadte(id, descricao, titulo);
+  }
 }
