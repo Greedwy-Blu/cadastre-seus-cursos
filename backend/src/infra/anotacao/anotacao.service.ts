@@ -17,7 +17,7 @@ export class anotacaoService {
       data: {
         descricao: descricao,
         titulo: titulo,
-        curriculumId: id,
+        curriculumId: Number(id),
       },
     });
   }

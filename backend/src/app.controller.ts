@@ -1,3 +1,4 @@
+import { anotacaoService } from './infra/anotacao/anotacao.service';
 import { curriculumService } from './infra/study/study-curriculum/study-curriculum.service';
 import { studyService } from './infra/study/study.service';
 import { JwtAuthGuard } from './infra/http/auth/jwt-auth.guard';
@@ -19,6 +20,8 @@ import { userRepository } from './infra/database/repositories/user-repositories'
 
 import { studyRepository } from './infra/database/repositories/study-repositories';
 import { createStudyBody } from './infra/dtos/create-study-body';
+import { createAnotacaoBody } from './infra/dtos/create-anotacao-body';
+import { anotacaoRepository } from './infra/database/repositories/anotacao-repositories';
 import { AuthGuard } from '@nestjs/passport';
 @Controller()
 export class AppController {
@@ -28,6 +31,7 @@ export class AppController {
     private authService: AuthService,
     private studyService: studyService,
     private curriculumService: curriculumService,
+    private anotacaoService: anotacaoService,
   ) {}
 
   @Post('home/create-user')
@@ -86,5 +90,13 @@ export class AppController {
     const { id } = body;
 
     await this.curriculumService.getcurriculum(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('user/create-anotacao')
+  async postAnotacao(@Body() body: createAnotacaoBody) {
+    const { descricao, titulo, id } = body;
+
+    await this.anotacaoService.anotacaoCreate(id, descricao, titulo);
   }
 }
