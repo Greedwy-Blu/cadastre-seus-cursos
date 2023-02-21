@@ -8,8 +8,10 @@ import { userRepository } from './infra/database/repositories/user-repositories'
 import { studyRepository } from './infra/database/repositories/study-repositories';
 import { PrismaStudyRepository } from './infra/database/repositories/prisma/prisma-study-repository';
 import { AuthModule } from './infra/http/auth/auth.module';
+import { anotacaoModule } from './infra/anotacao/anotacao.module';
+import { anotacaoRepository } from './infra/database/repositories/anotacao-repositories';
 @Module({
-  imports: [AuthModule, studyModule, curriculumModule],
+  imports: [AuthModule, studyModule, curriculumModule, anotacaoModule],
   controllers: [AppController],
   providers: [
     PrismaService,
