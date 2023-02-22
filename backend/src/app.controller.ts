@@ -15,6 +15,8 @@ import {
   Put,
   Patch,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { createUserBody } from './infra/dtos/create-user-body';
 import { userRepository } from './infra/database/repositories/user-repositories';
@@ -24,6 +26,9 @@ import { createStudyBody } from './infra/dtos/create-study-body';
 import { createAnotacaoBody } from './infra/dtos/create-anotacao-body';
 import { anotacaoRepository } from './infra/database/repositories/anotacao-repositories';
 import { AuthGuard } from '@nestjs/passport';
+import { IsPublic } from './infra/http/auth/decorators/is-public.decorator';
+import { AuthRequest } from './infra/http/auth/models/AuthRequest';
+
 @Controller()
 export class AppController {
   constructor(
@@ -42,10 +47,11 @@ export class AppController {
     await this.userRepository.create(name, email, password, age);
   }
 
+  @IsPublic()
   @UseGuards(LocalAuthGuard)
   @Post('home/login/auth')
-  async login(@Request() req) {
-    console.log(req.user);
+  @HttpCode(HttpStatus.OK)
+  async login(@Request() req: AuthRequest) {
     return this.authService.login(req.user);
   }
 

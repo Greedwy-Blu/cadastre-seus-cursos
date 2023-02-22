@@ -16,14 +16,16 @@ export class tokenService {
     private authService: AuthService,
   ) {}
 
-  async save(username: string, hash: string) {
+  async save(hash: string, username: string) {
     const objToken = await this.prisma.token.findFirst({
       where: {
         username: username,
       },
     });
+
+    console.log(objToken);
     if (objToken) {
-      this.prisma.token.update({
+      return this.prisma.token.update({
         where: {
           id: objToken.id,
         },
@@ -32,7 +34,7 @@ export class tokenService {
         },
       });
     } else {
-      this.prisma.token.create({
+      return this.prisma.token.create({
         data: {
           hash: hash,
           username: username,
