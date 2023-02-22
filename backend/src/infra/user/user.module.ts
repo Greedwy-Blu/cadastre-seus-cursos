@@ -7,7 +7,7 @@ import { forwardRef } from '@nestjs/common/utils';
 
 @Module({
   imports: [forwardRef(() => AuthModule)],
-  providers: [userService, PrismaService, createUserBody],
+  providers: [userService, PrismaService],
   exports: [userService],
 })
 export class userModule {}

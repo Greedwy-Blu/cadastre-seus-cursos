@@ -1,3 +1,4 @@
+import { tokenModule } from './infra/http/token/token.module';
 import { curriculumModule } from './infra/study/study-curriculum/study-curriculum.module';
 import { studyModule } from './infra/study/study.module';
 import { PrismaUserRepository } from './infra/database/repositories/prisma/prisma-user-repository';
@@ -10,11 +11,15 @@ import { PrismaStudyRepository } from './infra/database/repositories/prisma/pris
 import { AuthModule } from './infra/http/auth/auth.module';
 import { anotacaoModule } from './infra/anotacao/anotacao.module';
 import { anotacaoRepository } from './infra/database/repositories/anotacao-repositories';
+import { userService } from './infra/user/user.service';
+import { tokenService } from './infra/http/token/token.service';
 @Module({
   imports: [AuthModule, studyModule, curriculumModule, anotacaoModule],
   controllers: [AppController],
   providers: [
     PrismaService,
+    userService,
+    tokenService,
     {
       provide: userRepository,
       useClass: PrismaUserRepository,

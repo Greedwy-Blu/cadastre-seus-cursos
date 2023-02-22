@@ -4,12 +4,16 @@ import Config from "../lib/config"
 class StudyService{
 
     async cadastrar(data:any){
+        let token = await localStorage.getItem("TOKEN")
         return axios({
             url: Config.API_URL + "user/create-study",
             method: "POST",
             timeout: Config.TIMEOUT_REQUEST,
             data: data,
-            headers: Config.HEADER_REQUEST
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + token
+            }
         }).then((response) => {
             return Promise.resolve(response)
         }).catch((error) => {
@@ -18,12 +22,17 @@ class StudyService{
     }
 
     async studyfind(data:any){
+        let token = await localStorage.getItem("TOKEN")
+
       return axios({
           url: Config.API_URL + "user/study/study-find",
           method: "PATCH",
           timeout: Config.TIMEOUT_REQUEST,
           data: data,
-          headers: Config.HEADER_REQUEST
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token
+        }
       }).then((response) => {
           return Promise.resolve(response)
       }).catch((error) => {
@@ -32,12 +41,17 @@ class StudyService{
     }
 
     async studyUpdate(data:any){
+        let token = await localStorage.getItem("TOKEN")
+
       return axios({
           url: Config.API_URL + "user/study/study-update",
           method: "PUT",
           timeout: Config.TIMEOUT_REQUEST,
           data: data,
-          headers: Config.HEADER_REQUEST
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token
+        }
       }).then((response) => {
           return Promise.resolve(response)
       }).catch((error) => {
@@ -46,12 +60,17 @@ class StudyService{
     }
 
     async studyDelete(data:any){
+        let token = await localStorage.getItem("TOKEN")
+
     return axios({
         url: Config.API_URL + "user/study/study-delete",
         method: "DELETE",
         timeout: Config.TIMEOUT_REQUEST,
         data: data,
-        headers: Config.HEADER_REQUEST
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token
+        }
     }).then((response) => {
         return Promise.resolve(response)
     }).catch((error) => {
@@ -60,12 +79,17 @@ class StudyService{
     }
 
     async studyCurriculum(data:any){
+        let token = await localStorage.getItem("TOKEN")
+
     return axios({
         url: Config.API_URL + "user/study/study-curriculum",
         method: "PATCH",
         timeout: Config.TIMEOUT_REQUEST,
         data: data,
-        headers: Config.HEADER_REQUEST
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token
+        }
     }).then((response) => {
         return Promise.resolve(response)
     }).catch((error) => {

@@ -1,12 +1,14 @@
+import { User } from 'src/infra/user/entities/user.entity';
 import { tokenService } from './../token/token.service';
 import { JwtService } from '@nestjs/jwt';
-import { User, userService } from './../../user/user.service';
+import { userService } from './../../user/user.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { createUserBody } from 'src/infra/dtos/create-user-body';
 import { UserToken } from './models/UserToken';
 import { UserPayload } from './models/UserPayload';
 import { UnauthorizedError } from './errors/unauthorized.error';
+import { UserA } from '../token/token.entity';
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,8 +23,7 @@ export class AuthService {
       email: user.email,
     };
     const token = this.jwtService.sign(payload);
-    console.log(token);
-    console.log(this.tokenService.save(token, user.email));
+    this.tokenService.save(token, user.email);
 
     return {
       access_token: this.jwtService.sign(payload),
@@ -48,9 +49,7 @@ export class AuthService {
     );
   }
   async loginToken(token: string) {
-    const user: createUserBody = await this.tokenService.getUsuarioByToken(
-      token,
-    );
+    const user: User = await this.tokenService.getUsuarioByToken(token);
     if (user) {
       return this.login(user);
     } else {

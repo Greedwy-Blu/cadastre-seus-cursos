@@ -5,8 +5,8 @@ import { Injectable, Inject } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions';
 import { HttpStatus } from '@nestjs/common/enums';
 import { AuthService } from '../auth/auth.service';
-import { createUserBody } from '../../dtos/create-user-body';
 import { createTokenBody } from './dto/create-token-body';
+import { User } from 'src/infra/user/entities/user.entity';
 @Injectable()
 export class tokenService {
   constructor(
@@ -63,7 +63,7 @@ export class tokenService {
     }
   }
 
-  async getUsuarioByToken(token: string): Promise<createUserBody> {
+  async getUsuarioByToken(token: string): Promise<User> {
     token = token.replace('Bearer ', '').trim();
     const objToken: createTokenBody = await this.prisma.token.findFirst({
       where: {

@@ -1,3 +1,4 @@
+import { userService } from './infra/user/user.service';
 import { LocalAuthGuard } from './infra/http/auth/local-auth-guard';
 import { anotacaoService } from './infra/anotacao/anotacao.service';
 import { curriculumService } from './infra/study/study-curriculum/study-curriculum.service';
@@ -17,6 +18,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Param,
 } from '@nestjs/common';
 import { createUserBody } from './infra/dtos/create-user-body';
 import { userRepository } from './infra/database/repositories/user-repositories';
@@ -28,6 +30,8 @@ import { anotacaoRepository } from './infra/database/repositories/anotacao-repos
 import { AuthGuard } from '@nestjs/passport';
 import { IsPublic } from './infra/http/auth/decorators/is-public.decorator';
 import { AuthRequest } from './infra/http/auth/models/AuthRequest';
+import { User } from './infra/user/entities/user.entity';
+import { tokenService } from './infra/http/token/token.service';
 
 @Controller()
 export class AppController {
@@ -38,6 +42,9 @@ export class AppController {
     private studyService: studyService,
     private curriculumService: curriculumService,
     private anotacaoService: anotacaoService,
+    private tokenService: tokenService,
+
+    private userService: userService,
   ) {}
 
   @Post('home/create-user')
@@ -55,10 +62,23 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
+  @Post('home/login/token')
+  async loginToken(@Request() req, @Body() data) {
+    return this.authService.loginToken(data.token);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('user/profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  async getIdUser(@Request() req): Promise<User> {
+    const token = req.headers.authorization.split(' ')[1];
+    const { email } = await this.tokenService.getUsuarioByToken(token);
+    return this.userService.findOne(email);
   }
 
   @UseGuards(JwtAuthGuard)

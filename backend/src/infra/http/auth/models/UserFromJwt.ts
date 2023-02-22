@@ -1,4 +1,4 @@
 export class UserFromJwt {
-  id: string;
+  id: string | number;
   email: string;
 }
