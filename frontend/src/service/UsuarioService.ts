@@ -1,7 +1,7 @@
 import axios from "axios"
 import Config from "../lib/config"
 
-class UsuarioService{
+class UserService{
 
     async cadastrar(data:any){
         return axios({
@@ -50,7 +50,23 @@ class UsuarioService{
             return Promise.reject(error)
         })
     }
+
+    async profile(data:any){
+        return axios({
+            url: Config.API_URL + "user/profile",
+            method: "GET",
+            timeout: Config.TIMEOUT_REQUEST,
+            data: data,
+            headers: Config.HEADER_REQUEST
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
+
+
 }
 
-const usuarioService = new UsuarioService()
-export default usuarioService
+const userService = new UserService()
+export default userService

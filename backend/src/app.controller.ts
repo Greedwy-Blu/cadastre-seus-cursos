@@ -1,3 +1,4 @@
+import { LocalAuthGuard } from './infra/http/auth/local-auth-guard';
 import { anotacaoService } from './infra/anotacao/anotacao.service';
 import { curriculumService } from './infra/study/study-curriculum/study-curriculum.service';
 import { studyService } from './infra/study/study.service';
@@ -41,9 +42,10 @@ export class AppController {
     await this.userRepository.create(name, email, password, age);
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('home/login/auth')
   async login(@Request() req) {
+    console.log(req.user);
     return this.authService.login(req.user);
   }
 

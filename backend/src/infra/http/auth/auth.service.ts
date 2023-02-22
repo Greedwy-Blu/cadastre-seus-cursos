@@ -1,9 +1,12 @@
 import { tokenService } from './../token/token.service';
 import { JwtService } from '@nestjs/jwt';
-import { userService } from './../../user/user.service';
+import { User, userService } from './../../user/user.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { createUserBody } from 'src/infra/dtos/create-user-body';
+import { UserToken } from './models/UserToken';
+import { UserPayload } from './models/UserPayload';
+import { UnauthorizedError } from './errors/unauthorized.error';
 @Injectable()
 export class AuthService {
   constructor(
@@ -12,24 +15,36 @@ export class AuthService {
     private tokenService: tokenService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.userFind(email);
-    if (user && bcrypt.compareSync(password, user.password)) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
+  async login(user: User): Promise<UserToken> {
+    const payload: UserPayload = {
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+    };
 
-  async login(user: any) {
-    const payload = { username: user.email, sub: user.id };
-    const token = this.jwtService.sign(payload);
-    this.tokenService.save(token, user.email);
     return {
-      access_token: token,
+      access_token: this.jwtService.sign(payload),
     };
   }
 
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.usersService.userFind(email);
+
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (isPasswordValid) {
+        return {
+          ...user,
+          password: undefined,
+        };
+      }
+    }
+
+    throw new UnauthorizedError(
+      'Email address or password provided is incorrect.',
+    );
+  }
   async loginToken(token: string) {
     const user: createUserBody = await this.tokenService.getUsuarioByToken(
       token,
