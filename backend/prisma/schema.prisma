@@ -49,4 +49,5 @@ model token {
   id       Int    @id @default(autoincrement())
   hash     String
   username String
+  userId   Int
 }

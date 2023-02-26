@@ -16,7 +16,7 @@ export class tokenService {
     private authService: AuthService,
   ) {}
 
-  async save(hash: string, username: string) {
+  async save(hash: string, username: string, userId: string | number) {
     const objToken = await this.prisma.token.findFirst({
       where: {
         username: username,
@@ -38,6 +38,7 @@ export class tokenService {
         data: {
           hash: hash,
           username: username,
+          userId: Number(userId),
         },
       });
     }

@@ -23,7 +23,7 @@ export class AuthService {
       email: user.email,
     };
     const token = this.jwtService.sign(payload);
-    this.tokenService.save(token, user.email);
+    this.tokenService.save(token, user.email, user.id);
 
     return {
       access_token: this.jwtService.sign(payload),
