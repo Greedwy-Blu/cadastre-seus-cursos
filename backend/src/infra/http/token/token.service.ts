@@ -23,9 +23,8 @@ export class tokenService {
       },
     });
 
-    console.log(objToken);
     if (objToken) {
-      return this.prisma.token.update({
+      return await this.prisma.token.update({
         where: {
           id: objToken.id,
         },
@@ -34,7 +33,7 @@ export class tokenService {
         },
       });
     } else {
-      return this.prisma.token.create({
+      return await this.prisma.token.create({
         data: {
           hash: hash,
           username: username,
