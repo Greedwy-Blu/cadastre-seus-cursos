@@ -126,10 +126,14 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Post('user/create-anotacao')
-  async postAnotacao(@Body() body: createAnotacaoBody) {
-    const { descricao, titulo, id } = body;
+  async postAnotacao(@Request() req, @Body() body: createAnotacaoBody) {
+    const token = req.headers.authorization.split(' ')[1];
+    const { id } = await this.tokenService.getUsuarioByTokenID(token);
+    const userId = Number(id);
 
-    await this.anotacaoService.anotacaoCreate(id, descricao, titulo);
+    const { descricao, titulo } = body;
+
+    await this.anotacaoService.anotacaoCreate(userId, descricao, titulo);
   }
 
   @UseGuards(JwtAuthGuard)
