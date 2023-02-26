@@ -88,7 +88,7 @@ export class tokenService {
       },
     });
     if (objToken) {
-      const usuario = await this.userService.findOne(objToken.userId);
+      const usuario = await this.userService.findOneId(objToken.userId);
       return usuario;
     } else {
       //é uma requisição inválida
