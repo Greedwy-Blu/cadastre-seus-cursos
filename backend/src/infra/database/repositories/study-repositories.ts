@@ -3,5 +3,6 @@ export abstract class studyRepository {
     instuicao: string,
     curso: string,
     professores: string,
+    userid: number,
   ): Promise<void>;
 }

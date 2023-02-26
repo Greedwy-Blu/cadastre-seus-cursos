@@ -83,10 +83,14 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Post('user/create-study')
-  async postStudy(@Body() body: createStudyBody) {
+  async postStudy(@Request() req, @Body() body: createStudyBody) {
+    const token = req.headers.authorization.split(' ')[1];
+    const { id } = await this.tokenService.getUsuarioByTokenID(token);
+    const userId = Number(id);
+
     const { instuicao, curso, professores } = body;
 
-    await this.studyRepository.create(instuicao, curso, professores);
+    await this.studyRepository.create(instuicao, curso, professores, userId);
   }
 
   @UseGuards(JwtAuthGuard)

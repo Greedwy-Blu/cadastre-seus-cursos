@@ -25,4 +25,25 @@ export class curriculumService {
       },
     });
   }
+
+  async createCurriculum(
+    materia: string,
+    id: number,
+  ): Promise<createStudyBody | any> {
+    await this.prisma.curriculum.create({
+      data: {
+        materias: materia,
+        studyId: id,
+      },
+      select: {
+        study: {
+          select: {
+            curso: true,
+            instuicao: true,
+            professores: true,
+          },
+        },
+      },
+    });
+  }
 }

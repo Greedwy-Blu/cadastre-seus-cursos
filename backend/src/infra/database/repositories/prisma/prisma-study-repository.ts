@@ -10,13 +10,14 @@ export class PrismaStudyRepository implements studyRepository {
     instuicao: string,
     curso: string,
     professores: string,
+    id: number,
   ): Promise<void> {
     await this.prisma.study.create({
       data: {
         instuicao,
         curso,
         professores,
-        userId: Number(id),
+        userId: id,
       },
     });
   }
