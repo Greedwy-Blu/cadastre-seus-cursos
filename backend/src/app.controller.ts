@@ -78,7 +78,7 @@ export class AppController {
   async getIdUser(@Request() req): Promise<User> {
     const token = req.headers.authorization.split(' ')[1];
     const { email } = await this.tokenService.getUsuarioByToken(token);
-    return this.userService.findOne(email);
+    return this.userService.findOneEmail(email);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -79,4 +79,20 @@ export class tokenService {
       return null;
     }
   }
+
+  async getUsuarioByTokenID(token: string): Promise<User> {
+    token = token.replace('Bearer ', '').trim();
+    const objToken: createTokenBody = await this.prisma.token.findFirst({
+      where: {
+        hash: token,
+      },
+    });
+    if (objToken) {
+      const usuario = await this.userService.findOne(objToken.userId);
+      return usuario;
+    } else {
+      //é uma requisição inválida
+      return null;
+    }
+  }
 }
