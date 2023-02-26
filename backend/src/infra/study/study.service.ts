@@ -27,7 +27,7 @@ export class studyService {
   async studyFind(id: number): Promise<createStudyBody | any> {
     await this.prisma.study.findMany({
       where: {
-        id: id,
+        userId: id,
       },
     });
   }

@@ -25,7 +25,7 @@ export class anotacaoService {
   async anotacaoFind(id: number): Promise<createAnotacaoBody | any> {
     await this.prisma.anotacao.findMany({
       where: {
-        id: id,
+        curriculumId: id,
       },
     });
   }
