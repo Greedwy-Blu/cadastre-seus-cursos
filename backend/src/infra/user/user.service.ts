@@ -12,12 +12,38 @@ export class userService {
     return this.prisma.user.findUnique({ where: { email } });
   }
   async findOneEmail(email: string): Promise<User> {
-    return await this.prisma.user.findFirst({ where: { email: email } });
+    return await this.prisma.user.findFirst({
+      where: { email: email },
+      include: {
+        Study: {
+          select: {
+            id: true,
+            instuicao: true,
+            curso: true,
+            professores: true,
+            curriculum: {
+              select: {
+                id: true,
+                materias: true,
+                anotacao: {
+                  select: {
+                    id: true,
+                    descricao: true,
+                    titulo: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
   }
+
   async findOneId(id: number): Promise<User> {
     return await this.prisma.user.findFirst({
       where: { id: id },
-      select: {
+      include: {
         Study: {
           select: {
             id: true,
