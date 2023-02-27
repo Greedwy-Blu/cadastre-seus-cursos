@@ -15,6 +15,31 @@ export class userService {
     return await this.prisma.user.findFirst({ where: { email: email } });
   }
   async findOneId(id: number): Promise<User> {
-    return await this.prisma.user.findFirst({ where: { id: id } });
+    return await this.prisma.user.findFirst({
+      where: { id: id },
+      select: {
+        Study: {
+          select: {
+            id: true,
+            instuicao: true,
+            curso: true,
+            professores: true,
+            curriculum: {
+              select: {
+                id: true,
+                materias: true,
+                anotacao: {
+                  select: {
+                    id: true,
+                    descricao: true,
+                    titulo: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
   }
 }
