@@ -32,6 +32,7 @@ import { IsPublic } from './infra/http/auth/decorators/is-public.decorator';
 import { AuthRequest } from './infra/http/auth/models/AuthRequest';
 import { User } from './infra/user/entities/user.entity';
 import { tokenService } from './infra/http/token/token.service';
+import { PrismaClient } from '@prisma/client';
 
 @Controller()
 export class AppController {
