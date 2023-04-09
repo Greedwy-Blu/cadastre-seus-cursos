@@ -1,5 +1,41 @@
+import { useState } from 'react'
 import imgRegister from '../../assets/Open Doodles - Reading.png'
+import userService from '../../service/UsuarioService'
 export default function Register(){
+
+
+  const [email, setEmail] = useState(null)
+  const [nome, setNome] = useState(null)
+  const [idade, setIdade] = useState(null)
+  const [senha, setSenha] = useState(null)
+
+
+
+  const salvar = () => {
+
+      let data = {
+        email: email,
+        idade: idade,
+        nome: nome,
+        senha: senha
+      }
+
+      userService.cadastrar(data)
+      .then((response) => {
+
+        console.log('sucesso')
+
+      })
+      .catch((error) => {
+
+        console.log('erro')
+
+      })
+    }
+
+
+
+
   return(
     <section className="">
       <div className='m-2 flex justify-center'>
